@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Тень снизу -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <solid android:color="#3E2723" />
+        </shape>
+    </item>
+
+    <!-- Основная дощечка -->
+    <item
+        android:bottom="6dp"
+        android:top="0dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <solid android:color="#D35400" />
+            <stroke
+                android:width="3dp"
+                android:color="#5D3A1A" />
+            <gradient
+                android:angle="270"
+                android:startColor="#F39C12"
+                android:centerColor="#E67E22"
+                android:endColor="#D35400"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- Верхний светлый блик -->
+    <item
+        android:bottom="44dp"
+        android:top="8dp"
+        android:left="20dp"
+        android:right="20dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="10dp" />
+            <solid android:color="#33FFFFFF" />
+        </shape>
+    </item>
+
+</layer-list>

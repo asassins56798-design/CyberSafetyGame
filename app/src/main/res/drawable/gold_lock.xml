@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="160dp"
+    android:viewportWidth="120"
+    android:viewportHeight="160">
+
+    <!-- ТЁМНАЯ ТЕНЬ ПОД ЗАМКОМ (за ним, чтобы он "лежал" на щите) -->
+    <path
+        android:fillColor="#55000000"
+        android:pathData="M18,70 L102,70 L102,150 L18,150 Z" />
+
+    <!-- ДУЖКА — тёмная обводка -->
+    <path
+        android:strokeColor="#3E2723"
+        android:strokeWidth="22"
+        android:fillColor="#00000000"
+        android:pathData="M35,75 L35,50 A25,25 0 0 1 85,50 L85,75" />
+
+    <!-- ДУЖКА — золото -->
+    <path
+        android:strokeColor="#F39C12"
+        android:strokeWidth="14"
+        android:fillColor="#00000000"
+        android:pathData="M35,75 L35,50 A25,25 0 0 1 85,50 L85,75" />
+
+    <!-- ДУЖКА — верхний блик -->
+    <path
+        android:strokeColor="#FFD54F"
+        android:strokeWidth="5"
+        android:fillColor="#00000000"
+        android:pathData="M35,72 L35,50 A25,25 0 0 1 85,50 L85,72" />
+
+    <!-- КОРПУС — тёмная обводка -->
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M15,70 L105,70 L105,155 L15,155 Z" />
+
+    <!-- КОРПУС — золото -->
+    <path
+        android:fillColor="#F39C12"
+        android:pathData="M20,75 L100,75 L100,150 L20,150 Z" />
+
+    <!-- КОРПУС — верхний блик -->
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M20,75 L100,75 L100,95 L20,95 Z" />
+
+    <!-- КОРПУС — тень снизу -->
+    <path
+        android:fillColor="#E67E22"
+        android:pathData="M20,130 L100,130 L100,150 L20,150 Z" />
+
+    <!-- ЗАМОЧНАЯ СКВАЖИНА — круг сверху -->
+    <path
+        android:fillColor="#1A1A1A"
+        android:pathData="M60,100 m-9,0 a9,9 0 1,0 18,0 a9,9 0 1,0 -18,0" />
+
+    <!-- ЗАМОЧНАЯ СКВАЖИНА — вытянутая часть -->
+    <path
+        android:fillColor="#1A1A1A"
+        android:pathData="M53,105 L67,105 L64,132 L56,132 Z" />
+
+    <!-- ЗАКЛЁПКИ НА КОРПУСЕ (4 угла) -->
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M30,85 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M90,85 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M30,140 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M90,140 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+
+    <!-- МЕТАЛЛИЧЕСКИЕ УШКИ ПО БОКАМ (для скрепления со щитами) -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M10,100 L15,100 L15,130 L10,130 Z" />
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M105,100 L110,100 L110,130 L105,130 Z" />
+</vector>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_menu_gradient">
+
+    <!-- ДЕКОРАТИВНОЕ СВЕЧЕНИЕ -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/glow_circle"
+        android:translationX="-150dp"
+        android:translationY="-150dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- ГРУСТНЫЙ СМАЙЛ -->
+    <TextView
+        android:id="@+id/tvSad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="😔"
+        android:textSize="110sp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ЗАГОЛОВОК -->
+    <TextView
+        android:id="@+id/tvLoseTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ПОРАЖЕНИЕ"
+        android:textColor="#3E2723"
+        android:textSize="42sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.12"
+        android:shadowColor="#FFB74D"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="0"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvSad"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- РАЗДЕЛИТЕЛЬ -->
+    <View
+        android:id="@+id/vLoseDivider"
+        android:layout_width="80dp"
+        android:layout_height="4dp"
+        android:background="#E67E22"
+        android:layout_marginTop="14dp"
+        app:layout_constraintTop_toBottomOf="@id/tvLoseTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- РЕЗУЛЬТАТ -->
+    <TextView
+        android:id="@+id/tvLoseScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Правильных ответов: 4/10"
+        android:textColor="#3E2723"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="28dp"
+        app:layout_constraintTop_toBottomOf="@id/vLoseDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ПОЯСНЕНИЕ -->
+    <TextView
+        android:id="@+id/tvLoseMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Не расстраивайся!\nПопробуй ещё раз — у тебя получится."
+        android:textColor="#5D3A1A"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:lineSpacingExtra="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintTop_toBottomOf="@id/tvLoseScore"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- КНОПКА ПОПРОБОВАТЬ СНОВА -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnTryAgain"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:text="ПОПРОБОВАТЬ СНОВА"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:letterSpacing="0.1"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_primary_bg"
+        app:backgroundTint="@null"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toTopOf="@id/btnBackToMenu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- КНОПКА В МЕНЮ -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBackToMenu"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:text="В МЕНЮ"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#3E2723"
+        android:letterSpacing="0.1"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/btn_secondary_bg"
+        app:backgroundTint="@null"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

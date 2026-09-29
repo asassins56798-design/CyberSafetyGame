@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="800dp"
+    android:viewportWidth="100"
+    android:viewportHeight="800">
+
+    <!-- Основное тело — прямоугольник во всю высоту -->
+    <path
+        android:fillColor="#90A4AE"
+        android:pathData="M0,0 L100,0 L100,800 L0,800 Z" />
+
+    <!-- Верхний светлый блик -->
+    <path
+        android:fillColor="#CFD8DC"
+        android:pathData="M0,30 L100,30 L100,120 L0,120 Z" />
+
+    <!-- Левая тень (объём) -->
+    <path
+        android:fillColor="#607D8B"
+        android:pathData="M0,0 L25,0 L25,800 L0,800 Z" />
+
+    <!-- Тёмная обводка -->
+    <path
+        android:strokeColor="#263238"
+        android:strokeWidth="4"
+        android:fillColor="#00000000"
+        android:pathData="M0,0 L100,0 L100,800 L0,800 Z" />
+
+    <!-- Вертикальная линия у смыкающегося края -->
+    <path
+        android:strokeColor="#455A64"
+        android:strokeWidth="2"
+        android:fillColor="#00000000"
+        android:pathData="M95,0 L95,800" />
+
+    <!-- Заклёпки — только у левого края -->
+    <path
+        android:fillColor="#FFB74D"
+        android:pathData="M15,90 m-7,0 a7,7 0 1,0 14,0 a7,7 0 1,0 -14,0" />
+    <path
+        android:fillColor="#FFB74D"
+        android:pathData="M15,220 m-7,0 a7,7 0 1,0 14,0 a7,7 0 1,0 -14,0" />
+    <path
+        android:fillColor="#FFB74D"
+        android:pathData="M15,350 m-7,0 a7,7 0 1,0 14,0 a7,7 0 1,0 -14,0" />
+    <path
+        android:fillColor="#FFB74D"
+        android:pathData="M15,480 m-7,0 a7,7 0 1,0 14,0 a7,7 0 1,0 -14,0" />
+    <path
+        android:fillColor="#FFB74D"
+        android:pathData="M15,610 m-7,0 a7,7 0 1,0 14,0 a7,7 0 1,0 -14,0" />
+    <path
+        android:fillColor="#FFB74D"
+        android:pathData="M15,740 m-7,0 a7,7 0 1,0 14,0 a7,7 0 1,0 -14,0" />
+</vector>
