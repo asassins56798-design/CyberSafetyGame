@@ -6,48 +6,52 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_menu_gradient">
 
-    <!-- ДЕКОРАТИВНОЕ СВЕЧЕНИЕ -->
-    <View
+    <!-- GIF МАЛЬЧИКА — на весь экран, нижний слой -->
+    <ImageView
+        android:id="@+id/ivKid"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/glow_circle"
-        android:translationX="150dp"
-        android:translationY="-150dp"
+        android:scaleType="centerCrop"
+        android:alpha="1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <!-- ЛОГОТИП-ЩИТ -->
-    <TextView
-        android:id="@+id/tvLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="🛡️"
-        android:textSize="80sp"
-        android:layout_marginTop="110dp"
-        android:alpha="0"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- ЗАГОЛОВОК -->
+    <!-- ЗАТЕМНЕНИЕ ПОВЕРХ GIF -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#66000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ЗАГОЛОВОК SMART BOY -->
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="БЕЗОПАСНО"
-        android:textColor="#3E2723"
+        android:text="SMART BOY"
+        android:textColor="#FFB74D"
         android:textSize="42sp"
         android:textStyle="bold"
-        android:letterSpacing="0.15"
-        android:shadowColor="#FFB74D"
+        android:letterSpacing="0.05"
+        android:gravity="center"
+        android:shadowColor="#3E2723"
         android:shadowDx="3"
         android:shadowDy="3"
         android:shadowRadius="0"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:alpha="0"
-        app:layout_constraintTop_toBottomOf="@id/tvLogo"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="30sp"
+        app:autoSizeMaxTextSize="42sp"
+        app:autoSizeStepGranularity="2sp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -56,23 +60,28 @@
         android:id="@+id/vDivider"
         android:layout_width="80dp"
         android:layout_height="4dp"
-        android:background="#E67E22"
+        android:background="#FFB74D"
         android:layout_marginTop="14dp"
         android:alpha="0"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- ПОДЗАГОЛОВОК -->
+    <!-- ПОДЗАГОЛОВОК — с transformPivot для дыхания от центра -->
+    <!-- ПОДЗАГОЛОВОК — pivot устанавливается в Java -->
     <TextView
         android:id="@+id/tvSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ИГРА О КИБЕРБЕЗОПАСНОСТИ"
-        android:textColor="#8D6E63"
-        android:textSize="12sp"
-        android:letterSpacing="0.35"
+        android:textColor="#FFAB91"
+        android:textSize="14sp"
         android:textStyle="bold"
+        android:letterSpacing="0.25"
+        android:shadowColor="#3E2723"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4"
         android:layout_marginTop="14dp"
         android:alpha="0"
         app:layout_constraintTop_toBottomOf="@id/vDivider"
@@ -127,7 +136,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="v1.0"
-        android:textColor="#A1887F"
+        android:textColor="#FFF8E1"
         android:textSize="11sp"
         android:letterSpacing="0.2"
         android:layout_marginBottom="16dp"

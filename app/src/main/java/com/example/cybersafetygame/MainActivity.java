@@ -9,16 +9,27 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final long INTRO_DURATION_MS = 5000;
+
     private MaterialButton btnNewGame, btnStory;
-    private TextView tvLogo, tvTitle, tvSubtitle, tvVersion;
+    private ImageView ivKid;
+    private TextView tvTitle, tvSubtitle, tvVersion;
     private View vDivider;
 
     @Override
@@ -28,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnNewGame = findViewById(R.id.btnNewGame);
         btnStory = findViewById(R.id.btnStory);
-        tvLogo = findViewById(R.id.tvLogo);
+        ivKid = findViewById(R.id.ivKid);
         tvTitle = findViewById(R.id.tvTitle);
         tvSubtitle = findViewById(R.id.tvSubtitle);
         tvVersion = findViewById(R.id.tvVersion);
@@ -44,13 +55,44 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Запускаем последовательное появление всех элементов
         startEntranceAnimation();
+        playIntroThenLoop();
+    }
+
+    private void playIntroThenLoop() {
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.kid_intro)
+                .listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model,
+                                                Target<GifDrawable> target, boolean isFirstResource) {
+                        loadLoopAnimation();
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model,
+                                                   Target<GifDrawable> target,
+                                                   DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        new Handler(Looper.getMainLooper()).postDelayed(
+                                MainActivity.this::loadLoopAnimation,
+                                INTRO_DURATION_MS);
+                        return false;
+                    }
+                })
+                .into(ivKid);
+    }
+
+    private void loadLoopAnimation() {
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.kid_loop)
+                .into(ivKid);
     }
 
     private void startEntranceAnimation() {
-        // Задержки для каждого элемента
-        fadeIn(tvLogo, 0);
         fadeIn(tvTitle, 200);
         fadeIn(vDivider, 350);
         fadeIn(tvSubtitle, 500);
@@ -58,12 +100,9 @@ public class MainActivity extends AppCompatActivity {
         fadeIn(btnStory, 900);
         fadeIn(tvVersion, 1100);
 
-        // Пульсация кнопки «НАЧАТЬ ИГРУ» — стартует после появления
+        // Одна общая пульсация — стартует через 1.5 сек
         new Handler(Looper.getMainLooper()).postDelayed(
-                this::startPulseAnimation, 1500);
-
-        // Покачивание логотипа
-        startLogoAnimation();
+                this::startSynchronizedPulse, 1500);
     }
 
     private void fadeIn(View view, long delayMs) {
@@ -78,40 +117,45 @@ public class MainActivity extends AppCompatActivity {
                 .start();
     }
 
-    private void startPulseAnimation() {
-        ObjectAnimator pulse = ObjectAnimator.ofFloat(btnNewGame, "scaleX", 1f, 1.05f);
-        pulse.setDuration(1200);
-        pulse.setRepeatMode(ValueAnimator.REVERSE);
-        pulse.setRepeatCount(ValueAnimator.INFINITE);
-        pulse.setInterpolator(new AccelerateDecelerateInterpolator());
-        pulse.start();
+    private void startSynchronizedPulse() {
+        // Общий темп для всех — синхронизация
+        int duration = 1500;
 
-        ObjectAnimator pulseY = ObjectAnimator.ofFloat(btnNewGame, "scaleY", 1f, 1.05f);
-        pulseY.setDuration(1200);
-        pulseY.setRepeatMode(ValueAnimator.REVERSE);
-        pulseY.setRepeatCount(ValueAnimator.INFINITE);
-        pulseY.setInterpolator(new AccelerateDecelerateInterpolator());
-        pulseY.start();
-    }
+        // === КНОПКА «НАЧАТЬ ИГРУ» ===
+        ObjectAnimator btnPulseX = ObjectAnimator.ofFloat(btnNewGame, "scaleX", 1f, 1.05f);
+        btnPulseX.setDuration(duration);
+        btnPulseX.setRepeatMode(ValueAnimator.REVERSE);
+        btnPulseX.setRepeatCount(ValueAnimator.INFINITE);
+        btnPulseX.setInterpolator(new AccelerateDecelerateInterpolator());
+        btnPulseX.start();
 
-    private void startLogoAnimation() {
-        // Плавное покачивание логотипа
-        ObjectAnimator floatAnim = ObjectAnimator.ofFloat(tvLogo, "translationY", 0f, -12f);
-        floatAnim.setDuration(2200);
-        floatAnim.setRepeatMode(ValueAnimator.REVERSE);
-        floatAnim.setRepeatCount(ValueAnimator.INFINITE);
-        floatAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-        floatAnim.setStartDelay(1200);
-        floatAnim.start();
+        ObjectAnimator btnPulseY = ObjectAnimator.ofFloat(btnNewGame, "scaleY", 1f, 1.05f);
+        btnPulseY.setDuration(duration);
+        btnPulseY.setRepeatMode(ValueAnimator.REVERSE);
+        btnPulseY.setRepeatCount(ValueAnimator.INFINITE);
+        btnPulseY.setInterpolator(new AccelerateDecelerateInterpolator());
+        btnPulseY.start();
 
-        // Лёгкое покачивание влево-вправо
-        ObjectAnimator swayAnim = ObjectAnimator.ofFloat(tvLogo, "rotation", -3f, 3f);
-        swayAnim.setDuration(2800);
-        swayAnim.setRepeatMode(ValueAnimator.REVERSE);
-        swayAnim.setRepeatCount(ValueAnimator.INFINITE);
-        swayAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-        swayAnim.setStartDelay(1200);
-        swayAnim.start();
+        // === ПОДЗАГОЛОВОК ===
+        // Pivot по центру
+        tvSubtitle.post(() -> {
+            tvSubtitle.setPivotX(tvSubtitle.getWidth() / 2f);
+            tvSubtitle.setPivotY(tvSubtitle.getHeight() / 2f);
+        });
+
+        ObjectAnimator subtitlePulseX = ObjectAnimator.ofFloat(tvSubtitle, "scaleX", 1f, 1.02f);
+        subtitlePulseX.setDuration(duration);
+        subtitlePulseX.setRepeatMode(ValueAnimator.REVERSE);
+        subtitlePulseX.setRepeatCount(ValueAnimator.INFINITE);
+        subtitlePulseX.setInterpolator(new AccelerateDecelerateInterpolator());
+        subtitlePulseX.start();
+
+        ObjectAnimator subtitlePulseY = ObjectAnimator.ofFloat(tvSubtitle, "scaleY", 1f, 1.02f);
+        subtitlePulseY.setDuration(duration);
+        subtitlePulseY.setRepeatMode(ValueAnimator.REVERSE);
+        subtitlePulseY.setRepeatCount(ValueAnimator.INFINITE);
+        subtitlePulseY.setInterpolator(new AccelerateDecelerateInterpolator());
+        subtitlePulseY.start();
     }
 
     @Override
