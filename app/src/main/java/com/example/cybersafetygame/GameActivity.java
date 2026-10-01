@@ -20,12 +20,13 @@ public class GameActivity extends AppCompatActivity {
     private int currentIndex = 0;
     private int score = 0;
     private boolean answered = false;
-    private boolean canProceed = false;    // можно ли идти дальше
-    private boolean waitingForTap = false; // ждём клик
+    private boolean canProceed = false;
+    private boolean waitingForTap = false;
 
-    private TextView tvLocation, tvProgress, tvQuestion;
+    private TextView tvProgress, tvQuestion;
     private Button btnOption1, btnOption2, btnOption3;
     private ImageView ivBackground;
+    private View cardQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +34,12 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         ivBackground = findViewById(R.id.ivBackground);
-        tvLocation = findViewById(R.id.tvLocation);
         tvProgress = findViewById(R.id.tvProgress);
         tvQuestion = findViewById(R.id.tvQuestion);
         btnOption1 = findViewById(R.id.btnOption1);
         btnOption2 = findViewById(R.id.btnOption2);
         btnOption3 = findViewById(R.id.btnOption3);
+        cardQuestion = findViewById(R.id.cardQuestion);
 
         questions = QuizData.getQuestions();
 
@@ -46,16 +47,16 @@ public class GameActivity extends AppCompatActivity {
         btnOption2.setOnClickListener(v -> checkAnswer(1));
         btnOption3.setOnClickListener(v -> checkAnswer(2));
 
-        // Клик в любое место экрана = продолжить
-        View root = findViewById(android.R.id.content);
-        root.setOnClickListener(v -> {
+        // ТАП по карточке = следующая сцена
+        cardQuestion.setOnClickListener(v -> {
             if (waitingForTap && canProceed) {
                 proceedToNext();
             }
         });
 
-        // Клик по карточке вопроса тоже работает
-        tvQuestion.setOnClickListener(v -> {
+        // Тап в любом месте экрана тоже работает
+        View root = findViewById(android.R.id.content);
+        root.setOnClickListener(v -> {
             if (waitingForTap && canProceed) {
                 proceedToNext();
             }
@@ -76,8 +77,7 @@ public class GameActivity extends AppCompatActivity {
 
         Question q = questions.get(currentIndex);
 
-        tvLocation.setText(q.getLocation());
-        tvProgress.setText("Вопрос " + (currentIndex + 1) + "/" + questions.size());
+        tvProgress.setText("Сцена " + (currentIndex + 1) + "/" + questions.size());
         tvQuestion.setText(q.getQuestionText());
 
         ivBackground.setAlpha(0f);
@@ -103,20 +103,16 @@ public class GameActivity extends AppCompatActivity {
         if (selected == q.getCorrectAnswerIndex()) {
             score++;
             buttons[selected].getBackground().setTint(0xFF388E3C);
-            tvQuestion.setText(q.getQuestionText()
-                    + "\n\n✅ Верно!\n"
-                    + q.getExplanation()
+            tvQuestion.setText("✅ Верно!\n\n" + q.getExplanation()
                     + "\n\n👆 Нажми, чтобы продолжить");
         } else {
             buttons[selected].getBackground().setTint(0xFFC62828);
             buttons[q.getCorrectAnswerIndex()].getBackground().setTint(0xFF388E3C);
-            tvQuestion.setText(q.getQuestionText()
-                    + "\n\n❌ Правильный ответ:\n"
-                    + q.getExplanation()
+            tvQuestion.setText("❌ Неправильно.\n\n" + q.getExplanation()
                     + "\n\n👆 Нажми, чтобы продолжить");
         }
 
-        // Разрешаем переход через 0.3 секунды (защита от случайного тапа)
+        // Задержка 300 мс — защита от случайного тапа
         waitingForTap = true;
         new Handler(Looper.getMainLooper()).postDelayed(
                 () -> canProceed = true, 300);
@@ -142,13 +138,13 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void finishGame() {
-        // Разблокируем историю
-        SharedPreferences prefs = getSharedPreferences("game_prefs", MODE_PRIVATE);
-        prefs.edit().putBoolean("story_unlocked", true).apply();
-
-        // Проходной балл — 8 из 10
-        int passingScore = 8;
+        int passingScore = 3;
         boolean isVictory = score >= passingScore;
+
+        if (isVictory) {
+            SharedPreferences prefs = getSharedPreferences("game_prefs", MODE_PRIVATE);
+            prefs.edit().putBoolean("story_unlocked", true).apply();
+        }
 
         Intent intent;
         if (isVictory) {

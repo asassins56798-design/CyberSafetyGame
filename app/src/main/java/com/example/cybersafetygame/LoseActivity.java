@@ -28,13 +28,13 @@ public class LoseActivity extends AppCompatActivity {
 
         // Счёт из игры
         int score = getIntent().getIntExtra("score", 0);
-        int total = getIntent().getIntExtra("total", 10);
+        int total = getIntent().getIntExtra("total", 5);   // ← 5 по умолчанию (не 10)
         tvLoseScore.setText("Правильных ответов: " + score + "/" + total);
 
         // Анимация грустного смайла
         startSadAnimation();
 
-        // Кнопка «Попробовать снова»
+        // Кнопка «Попробовать снова» — перезапуск игры
         btnTryAgain.setOnClickListener(v -> {
             Intent intent = new Intent(this, TransitionActivity.class);
             startActivity(intent);

@@ -79,7 +79,7 @@
         android:id="@+id/tvCongrats"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ты стал мастером кибербезопасности!\nТеперь открой Историю и передай знания дальше."
+        android:text="Ты стал мастером кибербезопасности!"
         android:textColor="#5D3A1A"
         android:textSize="15sp"
         android:gravity="center"

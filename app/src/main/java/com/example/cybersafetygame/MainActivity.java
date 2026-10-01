@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton btnNewGame, btnStory;
     private ImageView ivKid;
     private TextView tvTitle, tvSubtitle, tvVersion;
-    private View vDivider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,23 @@ public class MainActivity extends AppCompatActivity {
         tvTitle = findViewById(R.id.tvTitle);
         tvSubtitle = findViewById(R.id.tvSubtitle);
         tvVersion = findViewById(R.id.tvVersion);
-        vDivider = findViewById(R.id.vDivider);
+
+        // Обводка для SMART BOY через reflection — работает на всех версиях
+        if (android.os.Build.VERSION.SDK_INT >= 31) {
+            try {
+                java.lang.reflect.Method setStrokeColor = TextView.class.getMethod(
+                        "setStrokeTextColor", int.class);
+                setStrokeColor.invoke(tvTitle, 0xFF1A1A1A);
+
+                java.lang.reflect.Method setStrokeWidth = TextView.class.getMethod(
+                        "setStrokeTextWidth", float.class);
+                setStrokeWidth.invoke(tvTitle, 12f);
+            } catch (Exception e) {
+                tvTitle.setShadowLayer(6f, 2f, 2f, 0xFF1A1A1A);
+            }
+        } else {
+            tvTitle.setShadowLayer(6f, 2f, 2f, 0xFF1A1A1A);
+        }
 
         btnNewGame.setOnClickListener(v -> {
             Intent intent = new Intent(this, TransitionActivity.class);
@@ -94,13 +109,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void startEntranceAnimation() {
         fadeIn(tvTitle, 200);
-        fadeIn(vDivider, 350);
         fadeIn(tvSubtitle, 500);
         fadeIn(btnNewGame, 700);
         fadeIn(btnStory, 900);
         fadeIn(tvVersion, 1100);
 
-        // Одна общая пульсация — стартует через 1.5 сек
         new Handler(Looper.getMainLooper()).postDelayed(
                 this::startSynchronizedPulse, 1500);
     }
@@ -118,26 +131,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startSynchronizedPulse() {
-        // Общий темп для всех — синхронизация
         int duration = 1500;
 
         // === КНОПКА «НАЧАТЬ ИГРУ» ===
-        ObjectAnimator btnPulseX = ObjectAnimator.ofFloat(btnNewGame, "scaleX", 1f, 1.05f);
-        btnPulseX.setDuration(duration);
-        btnPulseX.setRepeatMode(ValueAnimator.REVERSE);
-        btnPulseX.setRepeatCount(ValueAnimator.INFINITE);
-        btnPulseX.setInterpolator(new AccelerateDecelerateInterpolator());
-        btnPulseX.start();
+        ObjectAnimator btnNewPulseX = ObjectAnimator.ofFloat(btnNewGame, "scaleX", 1f, 1.05f);
+        btnNewPulseX.setDuration(duration);
+        btnNewPulseX.setRepeatMode(ValueAnimator.REVERSE);
+        btnNewPulseX.setRepeatCount(ValueAnimator.INFINITE);
+        btnNewPulseX.setInterpolator(new AccelerateDecelerateInterpolator());
+        btnNewPulseX.start();
 
-        ObjectAnimator btnPulseY = ObjectAnimator.ofFloat(btnNewGame, "scaleY", 1f, 1.05f);
-        btnPulseY.setDuration(duration);
-        btnPulseY.setRepeatMode(ValueAnimator.REVERSE);
-        btnPulseY.setRepeatCount(ValueAnimator.INFINITE);
-        btnPulseY.setInterpolator(new AccelerateDecelerateInterpolator());
-        btnPulseY.start();
+        ObjectAnimator btnNewPulseY = ObjectAnimator.ofFloat(btnNewGame, "scaleY", 1f, 1.05f);
+        btnNewPulseY.setDuration(duration);
+        btnNewPulseY.setRepeatMode(ValueAnimator.REVERSE);
+        btnNewPulseY.setRepeatCount(ValueAnimator.INFINITE);
+        btnNewPulseY.setInterpolator(new AccelerateDecelerateInterpolator());
+        btnNewPulseY.start();
+
+        // === КНОПКА «ИСТОРИЯ» ===
+        ObjectAnimator btnStoryPulseX = ObjectAnimator.ofFloat(btnStory, "scaleX", 1f, 1.05f);
+        btnStoryPulseX.setDuration(duration);
+        btnStoryPulseX.setRepeatMode(ValueAnimator.REVERSE);
+        btnStoryPulseX.setRepeatCount(ValueAnimator.INFINITE);
+        btnStoryPulseX.setInterpolator(new AccelerateDecelerateInterpolator());
+        btnStoryPulseX.start();
+
+        ObjectAnimator btnStoryPulseY = ObjectAnimator.ofFloat(btnStory, "scaleY", 1f, 1.05f);
+        btnStoryPulseY.setDuration(duration);
+        btnStoryPulseY.setRepeatMode(ValueAnimator.REVERSE);
+        btnStoryPulseY.setRepeatCount(ValueAnimator.INFINITE);
+        btnStoryPulseY.setInterpolator(new AccelerateDecelerateInterpolator());
+        btnStoryPulseY.start();
 
         // === ПОДЗАГОЛОВОК ===
-        // Pivot по центру
         tvSubtitle.post(() -> {
             tvSubtitle.setPivotX(tvSubtitle.getWidth() / 2f);
             tvSubtitle.setPivotY(tvSubtitle.getHeight() / 2f);

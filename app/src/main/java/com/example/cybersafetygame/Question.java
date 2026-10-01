@@ -1,5 +1,9 @@
 package com.example.cybersafetygame;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Question {
     private String location;
     private String questionText;
@@ -24,4 +28,30 @@ public class Question {
     public int getCorrectAnswerIndex() { return correctAnswerIndex; }
     public String getExplanation() { return explanation; }
     public int getBackgroundResId() { return backgroundResId; }
+
+    /**
+     * Перемешивает варианты ответов и обновляет индекс правильного.
+     */
+    public void shuffleChoices() {
+        // Сохраняем правильный ответ
+        String correctAnswer = choices[correctAnswerIndex];
+
+        // Перемешиваем варианты
+        List<String> list = new ArrayList<>();
+        Collections.addAll(list, choices);
+        Collections.shuffle(list);
+
+        // Обратно в массив
+        for (int i = 0; i < choices.length; i++) {
+            choices[i] = list.get(i);
+        }
+
+        // Находим новый индекс правильного ответа
+        for (int i = 0; i < choices.length; i++) {
+            if (choices[i].equals(correctAnswer)) {
+                correctAnswerIndex = i;
+                break;
+            }
+        }
+    }
 }
